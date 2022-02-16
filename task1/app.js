@@ -8,22 +8,23 @@ fs.writeFile(path.join(__dirname, 'text.txt'), 'some text', (err) => {
     if (err) {
         console.log(err);
     }
+    fs.readFile(path.join(__dirname, 'text.txt'), 'utf8', (err, data) => {
+        if (err) {
+            console.log(err);
+        }
+        if (data) {
+            fs.writeFile(path.join(__dirname, 'text2.txt'), data.toString(), (err) => {
+                if (err) {
+                    console.log(err);
+                }
+            })
+        }
+
+    })
 })
 
 
-fs.readFile(path.join(__dirname, 'text.txt'), 'utf8', (err, data) => {
-    if (err) {
-        console.log(err);
-    }
-    if (data) {
-        fs.writeFile(path.join(__dirname, 'text2.txt'), data.toString(), (err) => {
-            if (err) {
-                console.log(err);
-            }
-        })
-    }
 
-})
 
 
 

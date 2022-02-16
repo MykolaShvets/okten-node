@@ -9,20 +9,25 @@ fs.mkdir(path.join(__dirname, 'main'), (err) => {
     if (err) {
         console.log(err);
     }
+
+    fs.mkdir(path.join(__dirname, 'main', 'someDir'), (err) => {
+        if (err) {
+            console.log(err);
+        }
+    })
+
+    fs.writeFile(path.join(__dirname, 'main', 'file.txt'), 'some data', (err) => {
+        if (err) {
+            console.log(err);
+        }
+
+        checkAndChangeItem('file.txt')
+    })
+
 })
 
 
-fs.mkdir(path.join(__dirname, 'main', 'someDir'), (err) => {
-    if (err) {
-        console.log(err);
-    }
-})
 
-fs.writeFile(path.join(__dirname, 'main', 'file.txt'), 'some data', (err) => {
-    if (err) {
-        console.log(err);
-    }
-})
 
 const checkAndChangeItem = (itemName) => {
     fs.stat(path.join(__dirname, 'main', itemName.toString()), (err, stat) => {
@@ -46,4 +51,4 @@ const checkAndChangeItem = (itemName) => {
     })
 }
 
-checkAndChangeItem('file.txt')
+

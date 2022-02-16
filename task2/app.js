@@ -18,18 +18,23 @@ fs.readFile(path.join(__dirname, 'someFile.txt'), 'utf8', (err, data) => {
             if(err){
                 console.log(err);
             }
+
+            fs.writeFile(path.join(__dirname, 'main', 'anotherFile.txt'), data.toString(), (err) => {
+                if(err){
+                    console.log(err);
+                }
+
+                fs.unlink(path.join(__dirname, 'someFile.txt'), (err)=>{
+                    if (err) {
+                        console.log(err);
+                    }
+                })
+            })
+
         })
 
-        fs.writeFile(path.join(__dirname, 'main', 'anotherFile.txt'), data.toString(), (err) => {
-            if(err){
-                console.log(err);
-            }
-        })
 
-        fs.unlink(path.join(__dirname, 'someFile.txt'), (err)=>{
-            if (err) {
-                console.log(err);
-            }
-        })
+
+
     }
 })
