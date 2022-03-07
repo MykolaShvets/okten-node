@@ -13,11 +13,44 @@ export class CreateTablePosts1645637060028 implements MigrationInterface {
                     generationStrategy: 'increment',
                 },
                 {
-                    name: 'Title',
+                    name: 'title',
                     type: 'varchar',
                     width: 250,
                     isUnique: true,
                     isNullable: false,
+                },
+                {
+                    name: 'text',
+                    type: 'varchar',
+                    width: 250,
+                    isNullable: false,
+                },
+
+                {
+                    name: 'userId',
+                    type: 'int',
+                },
+
+                {
+                    name: 'createdAt',
+                    type: 'timestamp',
+                    isNullable: false,
+                    default: 'now()',
+                },
+                {
+                    name: 'deletedAt',
+                    type: 'timestamp',
+                    isNullable: false,
+                },
+            ],
+
+            foreignKeys: [
+                {
+                    columnNames: ['userId'],
+                    referencedTableName: 'Users',
+                    referencedColumnNames: ['id'],
+                    onDelete: 'CASCADE',
+                    onUpdate: 'CASCADE',
                 },
             ],
         }), true);

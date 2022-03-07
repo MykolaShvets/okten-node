@@ -1,8 +1,6 @@
 import express, { Response, Request } from 'express';
-import { user } from './user';
 
 const app = express();
-console.log(user);
 
 app.get('/', (req: Request, res: Response) => {
     res.end();
