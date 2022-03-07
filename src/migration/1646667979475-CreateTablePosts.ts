@@ -1,6 +1,6 @@
-import { MigrationInterface, QueryRunner, Table } from 'typeorm';
+import {MigrationInterface, QueryRunner, Table} from "typeorm";
 
-export class CreateTablePosts1645637060028 implements MigrationInterface {
+export class CreateTablePosts1646667979475 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(new Table({
             name: 'Posts',
@@ -12,6 +12,7 @@ export class CreateTablePosts1645637060028 implements MigrationInterface {
                     isGenerated: true,
                     generationStrategy: 'increment',
                 },
+
                 {
                     name: 'title',
                     type: 'varchar',
@@ -19,6 +20,7 @@ export class CreateTablePosts1645637060028 implements MigrationInterface {
                     isUnique: true,
                     isNullable: false,
                 },
+
                 {
                     name: 'text',
                     type: 'varchar',
@@ -37,10 +39,11 @@ export class CreateTablePosts1645637060028 implements MigrationInterface {
                     isNullable: false,
                     default: 'now()',
                 },
+
                 {
-                    name: 'deletedAt',
+                    name: 'deleteAt',
                     type: 'timestamp',
-                    isNullable: false,
+                    isNullable: true,
                 },
             ],
 
@@ -57,6 +60,6 @@ export class CreateTablePosts1645637060028 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable('Posts');
+        await queryRunner.dropTable('Posts', true);
     }
 }

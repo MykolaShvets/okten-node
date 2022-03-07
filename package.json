@@ -39,6 +39,7 @@
     "nodemon": "^2.0.15",
     "rimraf": "^3.0.2",
     "tsc-watch": "^4.6.0"
+
   },
   "description": ""
 }
