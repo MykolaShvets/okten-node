@@ -9,7 +9,7 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.listen(5000, async () => {
-    console.log('Server has started!');
+    console.log('Server has started!!!!');
 
     try {
         const connection = await createConnection();
