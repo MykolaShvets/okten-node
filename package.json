@@ -4,7 +4,7 @@
   "main": "dist/app.js",
   "scripts": {
     "start": "rimraf dist && tsc-watch --onSuccess \"npm run watch:server\"",
-    "watch:server": "nodemon './src/app.ts' --watch './src'",
+    "watch:server": "nodemon app.ts",
     "lint": "eslint --cache --ext .js,.ts src",
     "lint:fix": "npm run lint -- --fix",
     "typeorm": "node -r ts-node/register ./node_modules/typeorm/cli.js",
@@ -25,7 +25,6 @@
     "express": "^4.17.3",
     "mysql2": "^2.3.3",
     "reflect-metadata": "^0.1.13",
-    "ts-node": "^10.5.0",
     "typeorm": "^0.2.43"
   },
   "devDependencies": {
@@ -38,8 +37,21 @@
     "eslint-plugin-import": "^2.25.4",
     "nodemon": "^2.0.15",
     "rimraf": "^3.0.2",
+    "ts-node": "^10.7.0",
     "tsc-watch": "^4.6.0"
-
   },
-  "description": ""
+  "description": "",
+  "nodemonConfig": {
+    "watch": [
+      "app"
+    ],
+    "ext": "ts",
+    "ignore": [
+      "*.test.ts"
+    ],
+    "delay": "3",
+    "execMap": {
+      "ts": "ts-node"
+    }
+  }
 }
