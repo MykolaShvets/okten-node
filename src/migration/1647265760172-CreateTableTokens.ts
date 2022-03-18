@@ -7,6 +7,8 @@ export class CreateTableTokens1647265760172 implements MigrationInterface {
                 id INT PRIMARY KEY AUTO_INCREMENT,
                 refreshToken VARCHAR(250) NOT NULL,
                 userId INT NOT NULL,
+                createdAt TIMESTAMP DEFAULT(UTC_TIMESTAMP()) NOT NULL,
+                deletedAt TIMESTAMP,
                 FOREIGN KEY (userId) REFERENCES Users (id)
             )
         `);
