@@ -6,7 +6,7 @@ import { userService } from '../services/userService';
 class UserController {
     public async createUser(req: Request, res: Response): Promise<Response<IUser>> {
         const createdUser = await userService.createUser(req.body);
-        return res.status(201).json(createdUser);
+        return res.json(createdUser);
     }
 
     public async getAll(req: Request, res: Response): Promise<Response<IUser[]>> {
@@ -14,9 +14,9 @@ class UserController {
         return res.json(users);
     }
 
-    public async getByEmail(req: Request, res: Response): Promise<Response<IUser[]>> {
+    public async getUserByEmail(req: Request, res: Response): Promise<Response<IUser>> {
         const { email } = req.params;
-        const user = await userService.getByEmail(email);
+        const user = await userService.getUserByEmail(email);
         return res.json(user);
     }
 

@@ -1,12 +1,13 @@
 import jwt from 'jsonwebtoken';
 
-import { config } from '../configs/config';
-import { IToken } from '../entity/token';
-import { tokenRepository } from '../repositories/token/tokenRepository';
-import { ITokenPair, IUserPayload } from '../interfaces/token.interface';
+import {config} from '../configs/config';
+import {IToken} from '../entity/token';
+import {tokenRepository} from '../repositories/token/tokenRepository';
+import {ITokenPair, IUserPayload} from '../interfaces';
 
 class TokenService {
-    public async generateTokenPair(payload: IUserPayload): Promise<ITokenPair> {
+    public async generateTokenPair(payload: IUserPayload):
+        Promise<ITokenPair> {
         const accessToken = jwt.sign(
             payload,
             config.SECRET_ACCESS_KEY as string,
@@ -15,7 +16,7 @@ class TokenService {
         const refreshToken = jwt.sign(
             payload,
             config.SECRET_REFRESH_KEY as string,
-            { expiresIn: config.SECRET_REFRESH_KEY },
+            { expiresIn: config.EXPIRES_IN_REFRESH },
         );
 
         return {
@@ -31,12 +32,11 @@ class TokenService {
             return tokenRepository.createToken(tokenFromDb);
         }
 
-        const token = await tokenRepository.createToken({ refreshToken, userId });
-        return token;
+        return await tokenRepository.createToken({refreshToken, userId});
     }
 
     async deleteUserTokenPair(userId: number) {
-        return tokenRepository.delete({ userId });
+        return tokenRepository.deleteByParams({ userId });
     }
 
     verifyToken(authToken: string, tokenType = 'access'): IUserPayload {

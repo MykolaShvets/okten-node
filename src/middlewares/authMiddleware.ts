@@ -1,12 +1,11 @@
-import { NextFunction } from 'express';
-import { tokenService } from '../services/tokenService';
-import { userService } from "../services/userService";
-import {IRequestExtendet} from "../interfaces/requestExtendet.interface";
+import { NextFunction, Response } from 'express';
+import { tokenService, userService } from '../services';
+import { IRequestExtendet } from '../interfaces';
 
 class AuthMiddleware {
     public async checkAccessToken(req: IRequestExtendet, res: Response, next: NextFunction) {
         try {
-            const authToken = req.get('Autorization');
+            const authToken = req.get('Authorization');
 
             if (!authToken) {
                 throw new Error('No token');
@@ -14,14 +13,13 @@ class AuthMiddleware {
 
             const { userEmail } = tokenService.verifyToken(authToken);
 
-            const userFromToken = await userService.getByEmail(userEmail);
+            const userFromToken = await userService.getUserByEmail(userEmail);
 
-            if (!userFromToken){
-                throw new Error('no token  ')
+            if (!userFromToken) {
+                throw new Error('Wrong token');
             }
 
             req.user = userFromToken;
-
 
             next();
         } catch (e: any) {

@@ -1,8 +1,8 @@
 import bcrypt from 'bcrypt';
 
-import { IUser } from '../entity/user';
-import { userRepository } from '../repositories/user/userRepository';
-import {config} from "../configs/config";
+import {IUser} from '../entity/user';
+import {userRepository} from '../repositories/user/userRepository';
+import {config} from '../configs/config';
 
 class UserService {
     public async createUser(user: IUser): Promise<IUser> {
@@ -10,26 +10,19 @@ class UserService {
 
         const hashedPass = await this._hashPassword(password);
         const dataToSave = { ...user, password: hashedPass };
-        const createdUser = await userRepository.createUser(dataToSave);
-
-        return createdUser;
+        return await userRepository.createUser(dataToSave);
     }
 
     public async getAll(): Promise<IUser[]> {
-        const users = await userRepository.getAll();
-        return users;
+        return await userRepository.getAll();
     }
 
-    public async getByEmail(email: string): Promise<IUser | undefined> {
-        const user = await userRepository.getByEmail(email);
-
-        return user;
+    public async getUserByEmail(email: string): Promise<IUser | undefined> {
+        return await userRepository.getUserByEmail(email);
     }
 
     public async updateById(user: IUser, id: number): Promise<IUser | undefined> {
-        const updatedUser = await userRepository.updateById(user, id);
-
-        return updatedUser;
+        return await userRepository.updateById(user, id);
     }
 
     public async deleteById(id: number): Promise<void> {
