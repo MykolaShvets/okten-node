@@ -27,6 +27,7 @@
         "ts": "never"
       }
     ],
+    "max-len": ["error", {"code":  130}],
     "class-methods-use-this": "off",
     "no-unused-vars": ["error", { "args": "none" }],
     "no-underscore-dangle": "off"
