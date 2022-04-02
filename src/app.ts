@@ -5,7 +5,7 @@ import { createConnection } from 'typeorm';
 // import { Post } from './entity/post';
 // import { Comment } from './entity/comment';
 import { apiRouter } from './routers/apiRouter';
-import {config} from "./configs/config";
+import { config } from './configs/config';
 
 const app = express();
 app.use(express.json());

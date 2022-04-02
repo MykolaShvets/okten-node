@@ -1,7 +1,9 @@
-import { getManager } from 'typeorm';
+import { EntityRepository, getManager, Repository } from 'typeorm';
 import { IToken, Token } from '../../entity/token';
+import { ITokenRepository } from './tokenRepository.interface';
 
-class TokenRepository {
+@EntityRepository(Token)
+class TokenRepository extends Repository<Token> implements ITokenRepository {
     public async createToken(token: any): Promise<IToken> {
         return getManager().getRepository(Token).save(token);
     }
