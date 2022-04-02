@@ -5,6 +5,7 @@ import { createConnection } from 'typeorm';
 // import { Post } from './entity/post';
 // import { Comment } from './entity/comment';
 import { apiRouter } from './routers/apiRouter';
+import {config} from "./configs/config";
 
 const app = express();
 app.use(express.json());
@@ -109,7 +110,7 @@ app.use(apiRouter);
 //     }
 // }); // зролблю пізніше контроллери для постів і коментів
 
-const { PORT } = process.env;
+const { PORT } = config;
 
 app.listen(PORT, async () => {
     console.log(`Server has started! on port - ${PORT} `);
