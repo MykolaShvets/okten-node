@@ -34,6 +34,36 @@ class AuthMiddleware {
             console.log(e.message);
         }
     }
+
+    public async checkRefreshToken(req: IRequestExtendet, res: Response, next: NextFunction) {
+        try {
+            const refreshToken = req.get('Authorization');
+
+            if (!refreshToken) {
+                throw new Error('No token');
+            }
+
+            const { userEmail } = tokenService.verifyToken(refreshToken, 'refresh');
+
+            const tokenPairFromDb = await tokenRepository.findByParams({ refreshToken });
+
+            if (!tokenPairFromDb) {
+                throw new Error('Token not valid');
+            }
+
+            const userFromToken = await userService.getUserByEmail(userEmail);
+
+            if (!userFromToken) {
+                throw new Error('Token not valid');
+            }
+
+            req.user = userFromToken;
+
+            next();
+        } catch (e: any) {
+            console.log(e.message);
+        }
+    }
 }
 
 export const authMiddleware = new AuthMiddleware();
