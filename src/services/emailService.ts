@@ -1,7 +1,7 @@
 import * as nodemailer from 'nodemailer';
 
-import {config} from '../configs/config';
-import {emailActionEnum, emailInfo} from "../constants";
+import { config } from '../configs/config';
+import { emailActionEnum, emailInfo } from "../constants";
 
 class EmailService {
     sendMail(userMail: string, action: emailActionEnum) {
