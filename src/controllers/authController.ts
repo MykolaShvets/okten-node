@@ -10,6 +10,9 @@ import {emailActionEnum} from "../constants";
 class AuthController {
     public async registration(req: Request, res: Response): Promise<Response<ITokenData>> {
         const data = await authService.registration(req.body);
+
+        await emailServise.sendMail(req.body.email, emailActionEnum.REGISTRATION);
+
         res.cookie(
             COOKIE.nameRefreshToken,
             data.refreshToken,
