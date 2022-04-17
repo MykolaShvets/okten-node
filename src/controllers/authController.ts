@@ -1,10 +1,11 @@
-import { Request, Response } from 'express';
+import {Request, Response} from 'express';
 
-import { authService, tokenService, userService } from '../services';
-import { COOKIE } from '../constants/cookie';
-import { ITokenData, IRequestExtendet } from '../interfaces';
-import { IUser } from '../entity/user';
-import { tokenRepository } from '../repositories/token/tokenRepository';
+import {authService, emailServise, tokenService, userService} from '../services';
+import {COOKIE} from '../constants/cookie';
+import {IRequestExtendet, ITokenData} from '../interfaces';
+import {IUser} from '../entity/user';
+import {tokenRepository} from '../repositories/token/tokenRepository';
+import {emailActionEnum} from "../constants";
 
 class AuthController {
     public async registration(req: Request, res: Response): Promise<Response<ITokenData>> {
@@ -31,6 +32,8 @@ class AuthController {
         try {
             const { id, email, password: hashPassword } = req.user as IUser;
             const { password } = req.body;
+
+            await emailServise.sendMail(email, emailActionEnum.WELCOME);
 
             await userService.compareUserPasswords(password, hashPassword);
 
